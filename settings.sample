@@ -1,14 +1,14 @@
 {
   "Catalogs": {
-    "Directory": "Z:\\" // директория в которой храняться файлы - источники данных  
+    "Directory": "Z:\\"
   },
   "WialonListen": {
-    "Host": "0.0.0.0",//ip с которого принимать в случае 0.0.0.0 - принимать со всех
-    "Port": 20332     //port на который ретранслирует wialon сигнал
+    "Host": "0.0.0.0",
+    "Port": 20332
   },
   "Yandex": {
-    "Clid": "", // Идентификатор участника программы.
-    "Host": "http://extjams.maps.yandex.net/mtr_collect/1.x/", //yandex end point 
+    "Clid": "",
+    "Host": "",
     "Interval": 5
   }
 }
