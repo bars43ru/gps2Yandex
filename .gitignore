@@ -1,4 +1,7 @@
-settings.json
 /.vs
 /bin
 /obj
+/src/.vs
+/src/bin
+/src/obj
+/src/settings.json

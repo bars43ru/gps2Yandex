@@ -7,12 +7,12 @@
 
 ## Архитектура решения
 
-![](./documents/solution_scheme.png)
+![](./docs/solution_scheme.png)
 
 
 * Модуль "Gps2Yandex" принимает ретрансляционный сигнал с GPS данными от "Wialon" по протоколу **Wialon IPS**. Описание настройки 
-для приема сигнала модулем находятся в [settings.md](./documents/settings.md)
-* В модуле "Gps2Yandex" используются [Справочники](./documents/file_format.md) (**routes.txt** и **transport.txt**), которые необходимы
+для приема сигнала модулем находятся в [settings.md](./docs/settings.md)
+* В модуле "Gps2Yandex" используются [Справочники](./docs/file_format.md) (**routes.txt** и **transport.txt**), которые необходимы
 для связывания данных, поступающих от "Wialon" с расписанием (**schedule.txt**).
 
 При изменении справочников модуль "Gps2Yandex" подхватывает новые данные на лету, т.е. перезапуск модуля не требуется.
