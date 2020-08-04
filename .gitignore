@@ -5,3 +5,5 @@
 /src/bin
 /src/obj
 /src/settings.json
+/src/Properties
+/src/Gps2Yandex.csproj.user
