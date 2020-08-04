@@ -1,6 +1,6 @@
 {
   "Catalogs": {
-    "Directory": "Z:\\"
+    "Directory": ".\\source\\"
   },
   "WialonListen": {
     "Host": "0.0.0.0",

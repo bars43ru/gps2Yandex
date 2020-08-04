@@ -14,10 +14,20 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.4" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="settings.json.sample">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+  <Target Name="FileCopyAfterBuild" AfterTargets="AfterBuild">
+    <Copy SourceFiles="settings.json.sample" DestinationFiles="$(OutDir)settings.json" Condition="!Exists('$(OutDir)settings.json')" />
+    <MakeDir Directories="$(OutDir)source" Condition="!Exists('$(OutDir)source')" />
+    <Copy SourceFiles="SourceSample\route.txt.sample" DestinationFiles="$(OutDir)source\route.txt" Condition="!Exists('$(OutDir)source\route.txt')" />
+    <Copy SourceFiles="SourceSample\schedule.txt.sample" DestinationFiles="$(OutDir)source\schedule.txt" Condition="!Exists('$(OutDir)source\schedule.txt')" />
+    <Copy SourceFiles="SourceSample\transport.txt.sample" DestinationFiles="$(OutDir)source\transport.txt" Condition="!Exists('$(OutDir)source\transport.txt')" />
+  </Target>
+
+  <Target Name="SettingsFileCopyPublish" AfterTargets="CopyFilesToPublishDirectory">
+    <Copy SourceFiles="settings.json.sample" DestinationFiles="$(PublishDir)settings.json" />
+    <MakeDir Directories="$(PublishDir)source" />
+    <Copy SourceFiles="SourceSample\route.txt.sample" DestinationFiles="$(PublishDir)source\route.txt" />
+    <Copy SourceFiles="SourceSample\schedule.txt.sample" DestinationFiles="$(PublishDir)source\schedule.txt" />
+    <Copy SourceFiles="SourceSample\transport.txt.sample" DestinationFiles="$(PublishDir)source\transport.txt" />
+  </Target>
 
 </Project>
