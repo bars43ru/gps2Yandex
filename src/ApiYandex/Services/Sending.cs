@@ -39,12 +39,15 @@ namespace Gps2Yandex.ApiYandex.Services
                 await Task.Delay(Config.Interval * 1000, stoppingToken);
                 try
                 {
-                    Console.WriteLine("Prepare send to yandex.");
+                    Logger.LogInformation("Processing data for sending.");
                     var tracks = GetDataSet();
                     if (tracks.Items.Any())
                     {
-                        Console.WriteLine("Sending yandex.");
                         Send(tracks);
+                    }
+                    else
+                    {
+                        Logger.LogInformation("No data for sending to yandex.");
                     }
                 }
                 catch (Exception ex)
@@ -151,7 +154,8 @@ namespace Gps2Yandex.ApiYandex.Services
             content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             HttpResponseMessage response = httpClient.PostAsync(Config.Host, content).Result;
             var result = response.Content.ReadAsStringAsync().Result;
-            return ;
+            Logger.LogInformation($"Send data yandex. Response: {result}");
+            return;
         }
     }
 }
