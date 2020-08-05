@@ -66,7 +66,7 @@ namespace Gps2Yandex.Dataset.Services
 
         private void FirstReading()
         {
-            Logger.LogTrace($"First reading dataset from files.");
+            Logger.LogInformation($"First reading dataset from files.");
             try
             {
                 Create<RouteLoader>().LoadFrom(FileRoute);
@@ -81,7 +81,7 @@ namespace Gps2Yandex.Dataset.Services
 
         private void RouteLoader(FileInfo file)
         {
-            Logger.LogTrace($"File `{file.Name}` was changed.");
+            Logger.LogInformation($"File `{file.Name}` was changed.");
             try
             {
                 Create<RouteLoader>().LoadFrom(file);
@@ -94,7 +94,7 @@ namespace Gps2Yandex.Dataset.Services
 
         private void TransportLoader(FileInfo file)
         {
-            Logger.LogTrace($"File `{file.Name}` was changed.");
+            Logger.LogInformation($"File `{file.Name}` was changed.");
             try
             {
                 Create<TransportLoader>().LoadFrom(file);
@@ -107,7 +107,7 @@ namespace Gps2Yandex.Dataset.Services
 
         private void ScheduleLoader(FileInfo file)
         {
-            Logger.LogTrace($"File `{file.Name}` was changed.");
+            Logger.LogInformation($"File `{file.Name}` was changed.");
             try
             {
                 Create<ScheduleLoader>().LoadFrom(file);
