@@ -72,7 +72,7 @@ namespace Gps2Yandex.ApiYandex.Services
             var lst = schedules.Where(a => !Context.Routes.Any(b => b.ExternalNumber == a.Route));
             if (lst.Any())
             {
-                Console.WriteLine("Find record in schedules where number rout not found in routes dataset.");
+                Logger.LogInformation("Find record in schedules where number rout not found in routes dataset.");
             }
 
             var routes = schedules
@@ -85,7 +85,7 @@ namespace Gps2Yandex.ApiYandex.Services
             var lst2 = schedules.Where(a => !Context.Buses.Any(b => b.ExternalNumber == a.Transport));
             if (lst2.Any())
             {
-                Console.WriteLine("Find record in schedules where number transport not found in buses dataset.");
+                Logger.LogInformation("Find record in schedules where number transport not found in buses dataset.");
             }
             var buses = routes
                             .Join(Context.Buses,
@@ -102,7 +102,7 @@ namespace Gps2Yandex.ApiYandex.Services
             var lst3 = Context.GpsPoints.Where(a => !Context.Buses.Any(b => b.MonitoringNumber == a.MonitoringNumber));
             if (lst3.Any())
             {
-                Console.WriteLine("Find record in gps dataset where uid transport not found in buses dataset.");
+                Logger.LogInformation("Find record in gps dataset where uid transport not found in buses dataset.");
             }
 
             var dataset = buses
@@ -155,7 +155,6 @@ namespace Gps2Yandex.ApiYandex.Services
             HttpResponseMessage response = httpClient.PostAsync(Config.Host, content).Result;
             var result = response.Content.ReadAsStringAsync().Result;
             Logger.LogInformation($"Send data yandex. Response: {result}");
-            return;
         }
     }
 }
