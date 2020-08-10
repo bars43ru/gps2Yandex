@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+
+using Gps2Yandex.Model.Configure;
 
 namespace Gps2Yandex.Model.Services
 {
@@ -25,19 +28,16 @@ namespace Gps2Yandex.Model.Services
         private FileInfo FileTransport => new FileInfo(Path.Combine(BaseDirectory(), "transport.txt"));
         private FileInfo FileSchedule => new FileInfo(Path.Combine(BaseDirectory(), "schedule.txt"));
 
-        public MonitoringFiles(ILogger<MonitoringFiles> logger, IServiceProvider serviceProvider, IConfiguration config)
+        public MonitoringFiles(ILogger<MonitoringFiles> logger, IServiceProvider serviceProvider, IOptions<Config> config)
         {
             logger.LogInformation("Created a service for monitoring changes to files with the data set.");
             Logger = logger;
             ServiceProvider = serviceProvider;
-            Config = new Config();
-            config.GetSection("Catalogs").Bind(Config);
+            Config = config.Value;
         }
 
         private string BaseDirectory()
-        {
-            return Path.GetFullPath(Environment.ExpandEnvironmentVariables(Config.Directory));
-        }
+            => Path.GetFullPath(Environment.ExpandEnvironmentVariables(Config.Directory));
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {

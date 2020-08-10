@@ -4,11 +4,12 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using Gps2Yandex.Model.Services;
 using Gps2Yandex.Wialon.Extensions;
+using Gps2Yandex.Wialon.Configure;
 
 namespace Gps2Yandex.Wialon.Services
 {
@@ -21,14 +22,13 @@ namespace Gps2Yandex.Wialon.Services
         Config Config { get; }
         Context Context { get; }
 
-        public ListenerRetransmission(ILogger<ListenerRetransmission> logger,  IConfiguration config, Context context)
+        public ListenerRetransmission(ILogger<ListenerRetransmission> logger, IOptions<Config> config, Context context)
         {
             logger.LogInformation("Created a service listener retransmission wialon.");
 
             Logger = logger;
-            Config = new Config();
+            Config = config.Value;
             Context = context;
-            config.GetSection("WialonListen").Bind(Config);
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

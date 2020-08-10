@@ -5,13 +5,14 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using Gps2Yandex.Model.Services;
 using Gps2Yandex.Yandex.Models;
 using Gps2Yandex.Yandex.Extensions;
+using Gps2Yandex.Yandex.Configure;
 
 namespace Gps2Yandex.Yandex.Services
 {
@@ -21,13 +22,12 @@ namespace Gps2Yandex.Yandex.Services
         Config Config { get; }
         Context Context { get; }
 
-        public Sending(ILogger<Sending> logger, IConfiguration config, Context context)
+        public Sending(ILogger<Sending> logger, IOptions<Config> config, Context context)
         {
             logger.LogInformation("Create service send data to Yandex.");
             Logger = logger;
-            Config = new Config();
+            Config = config.Value;
             Context = context;
-            config.GetSection("Yandex").Bind(Config);
             ServicePointManager.Expect100Continue = false;
         }
 

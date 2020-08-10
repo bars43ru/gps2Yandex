@@ -3,13 +3,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using Gps2Yandex.Yandex.Extensions;
 using Gps2Yandex.Model.Extensions;
-using Gps2Yandex.Wialon.Extensions;
+using Gps2Yandex.Yandex.Configure;
+using Gps2Yandex.Wialon.Configure;
 
 namespace Gps2Yandex
 {
-    class Programm
+    public class Programm
     {
         public static void Main(string[] args)
         {
@@ -18,7 +18,8 @@ namespace Gps2Yandex
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args)
+            return Host                
+                .CreateDefaultBuilder(args)
                 .ConfigureLogging(configureLogging =>
                 {
                     configureLogging.AddConsole();
@@ -26,17 +27,18 @@ namespace Gps2Yandex
                 })
                 .ConfigureHostConfiguration(config =>
                 {
-                    _ = config
-                            .SetBasePath(Directory.GetCurrentDirectory())
-                            .AddJsonFile("settings.json", optional: false, reloadOnChange: true)
-                            .AddCommandLine(args);
+                    config
+                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .AddJsonFile("settings.json", optional: false, reloadOnChange: true)
+                        .AddCommandLine(args);
                 })
-                .ConfigureServices(services =>
+                .ConfigureServices((context, services) =>
                 {
-                    _ = services
-                            .AddDataset()
-                            .AddWialonListener()
-                            .AddApiYadex();
+                    var config = context.Configuration;
+                    services
+                        .AddDataSetServices(config)
+                        .AddWialonServices(config)
+                        .AddYadexServices(config);
                 });
         }
     }
