@@ -21,7 +21,11 @@ namespace Gps2Yandex.Wialon.Extensions
             }
             using var source = new StreamReader(streamReader);
 
-            string header = source.ReadLine();
+            var header = source.ReadLine();
+            if (string.IsNullOrEmpty(header))
+            {
+                throw new FormatException($"The device ID is missing in the first line of the stream.");
+            }
 
             Regex regex = new Regex(PatternL);
             Match match = regex.Match(header);

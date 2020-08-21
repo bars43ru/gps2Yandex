@@ -118,6 +118,7 @@ namespace Gps2Yandex.Yandex.Services
                             {
                                 Uuid = a.Bus.MonitoringNumber,
                                 Route = a.Route.YandexNumber,
+                                VehicleType = a.Bus.Type,
                                 Point = new Point()
                                 {
                                     Latitude = a.GpsData.Latitude,

@@ -40,7 +40,7 @@ namespace Gps2Yandex.Yandex.Models
         /// ⦁	trolleybus - троллейбус;
         /// ⦁	tramway - трамвай;
         /// ⦁	minibus - маршрутное такси.
-        /// ⦁	vehicle_type=minibus
+        /// vehicle_type=minibus
         /// </summary>
         [XmlAttribute(AttributeName = "vehicle_type")]
         public string VehicleType { get; set; } = "bus";
