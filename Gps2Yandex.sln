@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30223.230
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex", ".\src\Gps2Yandex.csproj", "{9DDB77DA-F894-4513-AA59-D060D5893B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex", "src\Gps2Yandex\Gps2Yandex.csproj", "{0A53A904-72D9-4718-BBBE-787FC2331632}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Wialon", "src\Gps2Yandex.Wialon\Gps2Yandex.Wialon.csproj", "{95830A77-7A99-4A03-B8A2-75EB461CDB0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Model", "src\Gps2Yandex.Model\Gps2Yandex.Model.csproj", "{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gps2Yandex.Yandex", "src\Gps2Yandex.Yandex\Gps2Yandex.Yandex.csproj", "{7F281FD8-493D-4445-9538-518CA67E8992}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9DDB77DA-F894-4513-AA59-D060D5893B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DDB77DA-F894-4513-AA59-D060D5893B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DDB77DA-F894-4513-AA59-D060D5893B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DDB77DA-F894-4513-AA59-D060D5893B7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A53A904-72D9-4718-BBBE-787FC2331632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A53A904-72D9-4718-BBBE-787FC2331632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A53A904-72D9-4718-BBBE-787FC2331632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A53A904-72D9-4718-BBBE-787FC2331632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95830A77-7A99-4A03-B8A2-75EB461CDB0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95830A77-7A99-4A03-B8A2-75EB461CDB0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95830A77-7A99-4A03-B8A2-75EB461CDB0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95830A77-7A99-4A03-B8A2-75EB461CDB0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F281FD8-493D-4445-9538-518CA67E8992}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F281FD8-493D-4445-9538-518CA67E8992}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F281FD8-493D-4445-9538-518CA67E8992}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F281FD8-493D-4445-9538-518CA67E8992}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
