@@ -11,7 +11,7 @@ namespace Gps2Yandex.Wialon.Extensions
 {
     internal static class StreamReaderExtensions
     {
-        private static string PatternL { get; } = @"#L#(?<uid>\d+)";
+        private static string PatternL { get; } = @"#L#(?<uid>\w+)";
         private static string PatternD { get; } = @"#D#(?<date>\d+);(?<time>\d+);(?<lat1>\d+\.\d+);(?<lat2>\w+);(?<lon1>\d+\.\d+);(?<lon2>\w+);(?<speed>\d+);(?<course>\d+);(?<alt>\d+\.\d+);(?<sats>\d+)";
         public static IEnumerable<GpsPoint> ReadAll(this NetworkStream streamReader)
         {
