@@ -47,14 +47,22 @@ namespace Gps2Yandex.Wialon.Extensions
                     continue;
                 }
 
-                yield return new GpsPoint(
+                var point = new GpsPoint(
                     monitoringNumber: uid,
                     time: $"{match.Groups["date"].Value}{match.Groups["time"].Value}".ToDateTime(),
                     latitude: double.Parse(match.Groups["lat1"].Value, CultureInfo.InvariantCulture).ToWGS84(),
                     longitude: double.Parse(match.Groups["lon1"].Value, CultureInfo.InvariantCulture).ToWGS84(),
                     speed: int.Parse(match.Groups["speed"].Value),
                     course: int.Parse(match.Groups["course"].Value)
-                    );
+                 );
+
+                // Причина появления этого условия см. https://github.com/bars43ru/gps2Yandex/issues/11
+                if ((int)point.Latitude == 9000 && (int)point.Longitude == 0)
+                {
+                    continue;
+                }
+
+                yield return point;
             }
         }
 
