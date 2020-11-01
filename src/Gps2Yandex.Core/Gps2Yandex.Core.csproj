@@ -9,8 +9,4 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.9" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\Gps2Yandex.Core\Gps2Yandex.Core.csproj" />
-	</ItemGroup>
-
 </Project>

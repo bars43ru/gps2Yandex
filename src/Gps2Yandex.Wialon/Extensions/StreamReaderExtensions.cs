@@ -5,7 +5,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 
-using Gps2Yandex.Model.Entity;
+using Gps2Yandex.Core.Entities;
 
 namespace Gps2Yandex.Wialon.Extensions
 {

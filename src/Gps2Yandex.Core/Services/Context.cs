@@ -3,11 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 
-using Gps2Yandex.Model.Entity;
+using Gps2Yandex.Core.Entities;
 
 using Minutes = System.UInt16;
 
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.Core.Services
 {
     public class Context
     {
@@ -23,21 +23,6 @@ namespace Gps2Yandex.Model.Services
             Buses = new Transport[] { };
             Routes = new Route[] { };
             Schedules = new Schedule[] { };
-        }
-
-        public void Update(params Transport[] buses)
-        {
-            Buses = buses;
-        }
-
-        public void Update(params Route[] routes)
-        {
-            Routes = routes;
-        }
-
-        public void Update(params Schedule[] schedules)
-        {
-            Schedules = schedules;
         }
 
         public void Update(GpsPoint point)

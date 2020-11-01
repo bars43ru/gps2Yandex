@@ -9,10 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using Gps2Yandex.Model.Services;
-using Gps2Yandex.Yandex.Models;
+using Gps2Yandex.Core.Services;
 using Gps2Yandex.Yandex.Extensions;
-using Gps2Yandex.Yandex.Configure;
+using Gps2Yandex.Yandex.Entities;
 
 namespace Gps2Yandex.Yandex.Services
 {
@@ -150,7 +149,7 @@ namespace Gps2Yandex.Yandex.Services
             };
 
             using var httpClient = new HttpClient();
-            using var content = new FormUrlEncodedContent(@params);
+            using var content = new FormUrlEncodedContent(@params!);
             content.Headers.Clear();
             content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             HttpResponseMessage response = httpClient.PostAsync(Config.Host, content).Result;

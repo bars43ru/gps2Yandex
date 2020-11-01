@@ -3,8 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-using Gps2Yandex.Model.Extensions;
+using Gps2Yandex.Core.Extensions;
 using Gps2Yandex.Yandex.Configure;
+using Gps2Yandex.Datasource.Configure;
 using Gps2Yandex.Wialon.Configure;
 
 namespace Gps2Yandex
@@ -37,6 +38,7 @@ namespace Gps2Yandex
                     var config = context.Configuration;
                     services
                         .AddDataSetServices(config)
+                        .AddModelServices(config)
                         .AddWialonServices(config)
                         .AddYadexServices(config);
                 });

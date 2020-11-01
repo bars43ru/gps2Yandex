@@ -10,7 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Gps2Yandex.Core\Gps2Yandex.Core.csproj" />
+		<ProjectReference Include="..\Gps2Yandex.Core\Gps2Yandex.Core.csproj" />
 	</ItemGroup>
 
 </Project>

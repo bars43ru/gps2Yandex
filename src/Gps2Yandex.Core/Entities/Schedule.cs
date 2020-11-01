@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gps2Yandex.Model.Entity
+namespace Gps2Yandex.Core.Entities
 {
     /// <summary>
     /// Расписание

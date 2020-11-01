@@ -8,9 +8,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 
-using Gps2Yandex.Model.Services;
+using Gps2Yandex.Core.Services;
 using Gps2Yandex.Wialon.Extensions;
-using Gps2Yandex.Wialon.Configure;
+using Gps2Yandex.Wialon.Entities;
 
 namespace Gps2Yandex.Wialon.Services
 {

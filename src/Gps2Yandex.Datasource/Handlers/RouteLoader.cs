@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
-using Gps2Yandex.Model.Entity;
+using Gps2Yandex.Core.Entities;
+using Gps2Yandex.Datasource.Services;
 
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.Datasource.Handlers
 {
-    internal class TransportLoader
+    internal class RouteLoader
     {
-        const string Pattern = @"(?<uid>[^;]*);(?<state>[^;]*);(?<type>[^;]*)";
+        const string Pattern = @"(?<external>[^;]*);(?<yandex>[^;]*)";
         Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Context Context { get; }
-        public TransportLoader(Context context)
+        Dataset Dataset { get; }
+
+        public RouteLoader(Dataset dataset)
         {
-            Context = context ?? throw new ArgumentNullException();
+            Dataset = dataset ?? throw new ArgumentNullException();
         }
 
         public void LoadFrom(FileInfo file)
@@ -26,10 +28,15 @@ namespace Gps2Yandex.Model.Services
             }
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
-            Context.Update(ReadAll(readStream).ToArray());
+            Dataset.Update(ReadAll(readStream).ToArray());
         }
 
-        private IEnumerable<Transport> ReadAll(StreamReader reader)
+        /// <summary>
+        /// Считывания данных о маршрутах
+        /// </summary>
+        /// <param name="reader"><seealso cref="StreamReader"/> на файл></param>
+        /// <returns>Перечень маршрутов</returns>
+        private IEnumerable<Route> ReadAll(StreamReader reader)
         {
             while (!reader.EndOfStream)
             {
@@ -47,16 +54,15 @@ namespace Gps2Yandex.Model.Services
         /// Парсим строку
         /// </summary>
         /// <param name="value">Строка с данными</param>
-        /// <returns><seealso cref="Transport"/>></returns>
-        private Transport Parse(string value)
+        /// <returns><seealso cref="Route"/>></returns>
+        private Route Parse(string value)
         {
             var match = Regex.Value.Match(value);
             if (match.Success)
             {
-                return new Transport(
-                    monitoringNumber: match.Groups["uid"].Value,
-                    externalNumber: match.Groups["state"].Value,
-                    type: match.Groups["type"].Value);
+                return new Route(
+                    externalNumber: match.Groups["external"].Value, 
+                    yandexNumber: match.Groups["yandex"].Value);
             }
             else
             {

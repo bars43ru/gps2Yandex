@@ -10,9 +10,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-using Gps2Yandex.Model.Configure;
+using Gps2Yandex.Datasource.Entities;
+using Gps2Yandex.Datasource.Handlers;
 
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.Datasource.Services
 {
     /// <summary>
     /// Мониторит изменения в файлах "справочниках", и если произошли изменения в них вызывает их загрузчик

@@ -5,20 +5,21 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
-using Gps2Yandex.Model.Entity;
+using Gps2Yandex.Core.Entities;
+using Gps2Yandex.Datasource.Services;
 
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.Datasource.Handlers
 {
     internal class ScheduleLoader
     {
         const string DateTimeFormat = @"dd/MM/yyyy'T'HH:mm:ss'Z'zzz";
         const string Pattern = @"(?<route>[^;]*);(?<transport>[^;]*);(?<begin>[^;]+);(?<end>[^;]+)";
         Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Context Context { get; }
+        Dataset Dataset { get; }
 
-        public ScheduleLoader(Context context)
+        public ScheduleLoader(Dataset dataset)
         {
-            Context = context ?? throw new ArgumentNullException();
+            Dataset = dataset ?? throw new ArgumentNullException();
         }
 
         public void LoadFrom(FileInfo file)
@@ -29,7 +30,7 @@ namespace Gps2Yandex.Model.Services
             }
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
-            Context.Update(ReadAll(readStream).ToArray());
+            Dataset.Update(ReadAll(readStream).ToArray());
         }
 
         private IEnumerable<Schedule> ReadAll(StreamReader reader)
