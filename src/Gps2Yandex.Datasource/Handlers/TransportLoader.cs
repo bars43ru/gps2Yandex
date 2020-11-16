@@ -42,7 +42,7 @@ namespace Gps2Yandex.Datasource.Handlers
                     continue;
                 }
                 yield return Parse(record);
-            };
+            }
         }
 
         /// <summary>

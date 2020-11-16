@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -17,9 +17,18 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Gps2Yandex.Core\Gps2Yandex.Core.csproj" />
-		<ProjectReference Include="..\Gps2Yandex.Datasource\Gps2Yandex.Datasource.csproj"/>
+		<ProjectReference Include="..\Gps2Yandex.Datasource\Gps2Yandex.Datasource.csproj" />
+		<ProjectReference Include="..\Gps2Yandex.WebApi\Gps2Yandex.WebApi.csproj" />
 		<ProjectReference Include="..\Gps2Yandex.Wialon\Gps2Yandex.Wialon.csproj" />
 		<ProjectReference Include="..\Gps2Yandex.Yandex\Gps2Yandex.Yandex.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Item Include="wwwroot\**" />
+		<Item Remove="wwwroot\js\route.js" />
+		<Content Update="wwwroot\**">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<Target Name="FileCopyAfterBuild" AfterTargets="AfterBuild">

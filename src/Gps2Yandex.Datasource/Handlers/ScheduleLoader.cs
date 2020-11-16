@@ -71,14 +71,14 @@ namespace Gps2Yandex.Datasource.Handlers
         }
 
 
-        private DateTime ToDateTime(string value)
+        private static DateTime ToDateTime(string value)
         {
-            var formats = new string[] { DateTimeFormat };
-            if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime _change))
+            var formats = new[] { DateTimeFormat };
+            if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var change))
             {
                 throw new ArgumentException($"Value `{value}` is not in proper `{DateTimeFormat}` format.");
             }
-            return _change;
+            return change;
         }
     }
 }

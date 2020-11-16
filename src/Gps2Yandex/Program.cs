@@ -1,9 +1,11 @@
 ﻿using System.IO;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting;
 
-using Gps2Yandex.Core.Extensions;
+using Gps2Yandex.Core.Configure;
 using Gps2Yandex.Yandex.Configure;
 using Gps2Yandex.Datasource.Configure;
 using Gps2Yandex.Wialon.Configure;
@@ -19,8 +21,14 @@ namespace Gps2Yandex
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
+            Directory.SetCurrentDirectory(path: Path.GetDirectoryName(typeof(Programm).Assembly.Location)!);
+
             return Host                
                 .CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                })
                 .ConfigureLogging(configureLogging =>
                 {
                     configureLogging.AddConsole();
@@ -29,8 +37,9 @@ namespace Gps2Yandex
                 .ConfigureHostConfiguration(config =>
                 {
                     config
-                        .SetBasePath(Directory.GetCurrentDirectory())
+                        .SetBasePath(Directory.GetCurrentDirectory())// Path.GetDirectoryName(typeof(Programm).Assembly.Location))
                         .AddJsonFile("settings.json", optional: false, reloadOnChange: true)
+                        .AddEnvironmentVariables()
                         .AddCommandLine(args);
                 })
                 .ConfigureServices((context, services) =>

@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Datasource", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Core", "src\Gps2Yandex.Core\Gps2Yandex.Core.csproj", "{DD28EEAD-F91E-47DB-93E6-54A8536D5E7E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.WebApi", "src\Gps2Yandex.WebApi\Gps2Yandex.WebApi.csproj", "{64056992-124B-437A-9323-780EDF50BA17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DD28EEAD-F91E-47DB-93E6-54A8536D5E7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD28EEAD-F91E-47DB-93E6-54A8536D5E7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD28EEAD-F91E-47DB-93E6-54A8536D5E7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64056992-124B-437A-9323-780EDF50BA17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64056992-124B-437A-9323-780EDF50BA17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64056992-124B-437A-9323-780EDF50BA17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64056992-124B-437A-9323-780EDF50BA17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

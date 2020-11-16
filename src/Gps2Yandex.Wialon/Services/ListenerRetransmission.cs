@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.DependencyInjection;
 
 using Gps2Yandex.Core.Services;
 using Gps2Yandex.Wialon.Extensions;
@@ -19,21 +18,18 @@ namespace Gps2Yandex.Wialon.Services
     /// </summary>
     internal class ListenerRetransmission : BackgroundService
     {
-        ILogger Logger { get; }
-        IServiceProvider ServiceProvider { get; }
-        Config Config { get; }
-        Context Context { get; }
+        private ILogger Logger { get; }
+        private Config Config { get; }
+        private Context Context { get; }
 
         public ListenerRetransmission(
             ILogger<ListenerRetransmission> logger,
-            IServiceProvider serviceProvider,
             IOptions<Config> config, 
             Context context)
         {
             logger.LogInformation("Created a service listener retransmission wialon.");
 
             Logger = logger;
-            ServiceProvider = serviceProvider;
             Config = config.Value;
             Context = context;
         }

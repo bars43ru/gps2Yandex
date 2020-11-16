@@ -20,9 +20,9 @@ namespace Gps2Yandex.Core.Services
         public Context()
         {
             gpsPoints = new ConcurrentDictionary<string, GpsPoint>();
-            Buses = new Transport[] { };
-            Routes = new Route[] { };
-            Schedules = new Schedule[] { };
+            Buses = Array.Empty<Transport>();
+            Routes = Array.Empty<Route>();
+            Schedules = Array.Empty<Schedule>();
         }
 
         public void Update(GpsPoint point)

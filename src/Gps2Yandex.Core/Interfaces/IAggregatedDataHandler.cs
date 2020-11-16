@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Gps2Yandex.Core.Entities;
 
 namespace Gps2Yandex.Core.Interfaces
 {
-    public interface ISendingData
+    public interface IAggregatedDataHandler
     {
-        void Send(IEnumerable<AggregatedData> items);
+        Task Execute(IEnumerable<AggregatedData> items);
     }
 }
-
 
 /*
 т.е. есть агрегатор - соединяет все источники данных, 

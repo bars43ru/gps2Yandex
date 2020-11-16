@@ -68,12 +68,12 @@ namespace Gps2Yandex.Wialon.Extensions
 
         private static DateTime ToDateTime(this string value)
         {
-            var formats = new string[] { "ddMMyyHHmmss" };
-            if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime _change))
+            var formats = new[] { "ddMMyyHHmmss" };
+            if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var change))
             {
                 throw new ArgumentException($"value is not in proper `{formats[0]}` format.");
             }
-            return _change;
+            return change;
         }
 
         private static double ToWGS84(this double value)

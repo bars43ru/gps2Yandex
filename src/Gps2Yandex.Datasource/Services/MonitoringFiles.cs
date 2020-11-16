@@ -40,29 +40,27 @@ namespace Gps2Yandex.Datasource.Services
         private string BaseDirectory()
             => Path.GetFullPath(Environment.ExpandEnvironmentVariables(Config.Directory));
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             Logger.LogInformation("Start service for monitoring changes to files with the data set.");
-            return Task.Run(() =>
-            {
-                FirstReading();
+            await Task.Yield();
+            FirstReading();
+            var t = Directory.GetCurrentDirectory();
+            var fileProvider = new PhysicalFileProvider(BaseDirectory());                
+            using var route = ChangeToken.OnChange(
+                                    () => fileProvider.Watch(FileRoute.Name),
+                                    () => RouteLoader(FileRoute));
 
-                var fileProvider = new PhysicalFileProvider(BaseDirectory());                
-                using var route = ChangeToken.OnChange(
-                                       () => fileProvider.Watch(FileRoute.Name),
-                                       () => RouteLoader(FileRoute));
+            using var transport = ChangeToken.OnChange(
+                                    () => fileProvider.Watch(FileTransport.Name),
+                                    () => TransportLoader(FileTransport));
 
-                using var transport = ChangeToken.OnChange(
-                                       () => fileProvider.Watch(FileTransport.Name),
-                                       () => TransportLoader(FileTransport));
+            using var schedule = ChangeToken.OnChange(
+                                    () => fileProvider.Watch(FileSchedule.Name),
+                                    () => { ScheduleLoader(FileSchedule); });
 
-                using var schedule = ChangeToken.OnChange(
-                                       () => fileProvider.Watch(FileSchedule.Name),
-                                       () => { ScheduleLoader(FileSchedule); });
-
-                stoppingToken.WaitHandle.WaitOne();
-                Logger.LogInformation("Stopped service for monitoring changes to files with the data set.");
-            });
+            stoppingToken.WaitHandle.WaitOne();
+            Logger.LogInformation("Stopped service for monitoring changes to files with the data set.");
         }
 
         private void FirstReading()
