@@ -45,7 +45,6 @@ namespace Gps2Yandex.Datasource.Services
             Logger.LogInformation("Start service for monitoring changes to files with the data set.");
             await Task.Yield();
             FirstReading();
-            var t = Directory.GetCurrentDirectory();
             var fileProvider = new PhysicalFileProvider(BaseDirectory());                
             using var route = ChangeToken.OnChange(
                                     () => fileProvider.Watch(FileRoute.Name),

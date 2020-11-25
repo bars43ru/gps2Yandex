@@ -11,11 +11,11 @@ namespace Gps2Yandex.Core.Services
 {
     public class Context
     {
-        ConcurrentDictionary<string, GpsPoint> gpsPoints { get; }
+        private ConcurrentDictionary<string, GpsPoint> gpsPoints { get; }
         public IEnumerable<Transport> Buses { get; private set; }
         public IEnumerable<Route> Routes { get; private set; }
         public IEnumerable<Schedule> Schedules { get; private set; }
-        public IEnumerable<GpsPoint> GpsPoints { get => gpsPoints.Values; }
+        public IEnumerable<GpsPoint> GpsPoints => gpsPoints.Values;
 
         public Context()
         {

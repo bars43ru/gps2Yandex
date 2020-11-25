@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Gps2Yandex.WebApi.Extensions
+namespace Gps2Yandex.WebApi.Configure
 {
     public static class ConfigureServices
     {

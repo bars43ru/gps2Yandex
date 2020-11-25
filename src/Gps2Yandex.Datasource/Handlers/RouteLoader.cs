@@ -11,21 +11,18 @@ namespace Gps2Yandex.Datasource.Handlers
 {
     internal class RouteLoader
     {
-        const string Pattern = @"(?<external>[^;]*);(?<yandex>[^;]*)";
-        Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Dataset Dataset { get; }
+        private const string Pattern = @"(?<external>[^;]*);(?<yandex>[^;]*)";
+        private Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
+        private Dataset Dataset { get; }
 
         public RouteLoader(Dataset dataset)
         {
-            Dataset = dataset ?? throw new ArgumentNullException();
+            Dataset = dataset ?? throw new ArgumentNullException(nameof(dataset));
         }
 
         public void LoadFrom(FileInfo file)
         {
-            if (file == null)
-            {
-                throw new ArgumentNullException(nameof(file));
-            }
+            _ = file ?? throw new ArgumentNullException(nameof(file));
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
             Dataset.Update(ReadAll(readStream).ToArray());
@@ -42,12 +39,8 @@ namespace Gps2Yandex.Datasource.Handlers
             {
                 var record = reader.ReadLine();
                 // пропускаем пустые строки и если в них только управляющие символы
-                if (string.IsNullOrWhiteSpace(record))
-                {
-                    continue;
-                }
-                yield return Parse(record);
-            };
+                if (!string.IsNullOrWhiteSpace(record)) yield return Parse(record);
+            }
         }
 
         /// <summary>
@@ -58,16 +51,12 @@ namespace Gps2Yandex.Datasource.Handlers
         private Route Parse(string value)
         {
             var match = Regex.Value.Match(value);
-            if (match.Success)
-            {
-                return new Route(
-                    externalNumber: match.Groups["external"].Value, 
-                    yandexNumber: match.Groups["yandex"].Value);
-            }
-            else
-            {
-                throw new FormatException($"The record `{value}` doesn't match the format `{Pattern}`.");
-            }
+            return match.Success 
+                ? new Route(
+                externalNumber: match.Groups["external"].Value, 
+                yandexNumber: match.Groups["yandex"].Value
+                )
+                : throw new FormatException($"The record `{value}` doesn't match the format `{Pattern}`.");
         }
     }
 }

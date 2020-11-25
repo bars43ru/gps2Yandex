@@ -12,22 +12,19 @@ namespace Gps2Yandex.Datasource.Handlers
 {
     internal class ScheduleLoader
     {
-        const string DateTimeFormat = @"dd/MM/yyyy'T'HH:mm:ss'Z'zzz";
-        const string Pattern = @"(?<route>[^;]*);(?<transport>[^;]*);(?<begin>[^;]+);(?<end>[^;]+)";
-        Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Dataset Dataset { get; }
+        private const string DateTimeFormat = @"dd/MM/yyyy'T'HH:mm:ss'Z'zzz";
+        private const string Pattern = @"(?<route>[^;]*);(?<transport>[^;]*);(?<begin>[^;]+);(?<end>[^;]+)";
+        private Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
+        private Dataset Dataset { get; }
 
         public ScheduleLoader(Dataset dataset)
         {
-            Dataset = dataset ?? throw new ArgumentNullException();
+            Dataset = dataset ?? throw new ArgumentNullException(nameof(dataset));
         }
 
         public void LoadFrom(FileInfo file)
         {
-            if (file == null)
-            {
-                throw new ArgumentNullException(nameof(file));
-            }
+            _ = file ?? throw new ArgumentNullException(nameof(file));
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
             Dataset.Update(ReadAll(readStream).ToArray());
@@ -39,12 +36,8 @@ namespace Gps2Yandex.Datasource.Handlers
             {
                 var record = reader.ReadLine();
                 // пропускаем пустые строки и если в них только управляющие символы
-                if (string.IsNullOrWhiteSpace(record))
-                {
-                    continue;
-                }
-                yield return Parse(record);
-            };
+                if (!string.IsNullOrWhiteSpace(record)) yield return Parse(record);
+            }
         }
 
         /// <summary>
@@ -55,30 +48,24 @@ namespace Gps2Yandex.Datasource.Handlers
         private Schedule Parse(string value)
         {
             var match = Regex.Value.Match(value);
-            if (match.Success)
-            {
-                return new Schedule(
+            return match.Success
+                ? new Schedule(
                     route: match.Groups["route"].Value,
                     transport: match.Groups["transport"].Value,
                     begin: ToDateTime(match.Groups["begin"].Value),
                     end: ToDateTime(match.Groups["end"].Value)
-                );
-            }
-            else
-            {
-                throw new FormatException($"The record `{value}` doesn't match the format `{Pattern}`.");
-            }
+                )
+                : throw new FormatException($"The record `{value}` doesn't match the format `{Pattern}`.");
         }
 
 
         private static DateTime ToDateTime(string value)
         {
             var formats = new[] { DateTimeFormat };
-            if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var change))
-            {
-                throw new ArgumentException($"Value `{value}` is not in proper `{DateTimeFormat}` format.");
-            }
-            return change;
+            return !DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal,
+                out var change)
+                ? throw new ArgumentException($"Value `{value}` is not in proper `{DateTimeFormat}` format.")
+                : change;
         }
     }
 }

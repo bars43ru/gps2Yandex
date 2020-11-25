@@ -63,7 +63,7 @@ namespace Gps2Yandex.Wialon.Services
         {
             return Task.Run(() =>
             {
-                var ipEndPoint = (IPEndPoint)tcpClient.Client.RemoteEndPoint;
+                var ipEndPoint = (IPEndPoint)tcpClient.Client.RemoteEndPoint!;
                 Logger.LogInformation($"Opening tcp connection. Remote end point `{ipEndPoint}`.");
 
                 //using var scope = ServiceProvider.CreateScope();

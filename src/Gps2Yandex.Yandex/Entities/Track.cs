@@ -11,9 +11,9 @@ namespace Gps2Yandex.Yandex.Entities
     public class Track
     {
         /// <summary>
-        /// Идентификатор движущегося объекта (транспортного средства). 
+        /// Идентификатор движущегося объекта (транспортного средства).
         //  Длина идентификатора не должна превышать 32 символа и содержать только символы латинского алфавита и цифры.
-        //  uuid=0d63b6deacb91b00e46194fac325b72a
+        //  Exsample: uuid = 0d63b6deacb91b00e46194fac325b72a
         /// </summary>
         [XmlAttribute(AttributeName = "uuid")]
         public string Uuid { get; set; } = string.Empty;
@@ -38,7 +38,7 @@ namespace Gps2Yandex.Yandex.Entities
         /// Тип общественного транспортного средства: 
         /// ⦁	bus - автобус;
         /// ⦁	trolleybus - троллейбус;
-        /// ⦁	tramway - трамвай;
+        /// >⦁	tramway - трамвай;
         /// ⦁	minibus - маршрутное такси.
         /// vehicle_type=minibus
         /// </summary>

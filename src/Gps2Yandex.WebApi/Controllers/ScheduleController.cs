@@ -11,8 +11,8 @@ namespace Gps2Yandex.WebApi.Controllers
     [Route("api/[controller]/[action]")]
     public class ScheduleController : ControllerBase
     {
-        ILogger Logger { get; }
-        IDataset Dataset { get; }
+        private ILogger Logger { get; }
+        private IDataset Dataset { get; }
 
         public ScheduleController(
             ILogger<RouteController> logger,

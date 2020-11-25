@@ -34,16 +34,17 @@ namespace Gps2Yandex.Core.Entities
         /// </summary>
         public int Course { get; }
 
+        /*
         /// <summary>
-        /// Высота. Если отсутствует, значение null.
+        /// Высота. Если отсутствует, значение null
         /// </summary>
-        //public int? Alt { get; set; }
+        public int? Alt { get; set; }
 
         /// <summary>
         /// Количество спутников. Если отсутствует, значение null.
         /// </summary>
-        //public int? Sats { get; set; }
-
+        public int? Sats { get; set; }
+        */
         public GpsPoint(string monitoringNumber, DateTime time, double latitude, double longitude, int speed, int course)
         {
             MonitoringNumber = monitoringNumber;

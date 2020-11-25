@@ -1,6 +1,6 @@
 ﻿namespace Gps2Yandex.Wialon.Entities
 {
-    internal class PointGPS
+    internal class PointGps
     {
         public string Uid { get; } = string.Empty;
         public string Date { get; } = string.Empty;

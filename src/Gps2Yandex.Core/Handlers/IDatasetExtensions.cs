@@ -5,7 +5,7 @@ using Gps2Yandex.Core.Interfaces;
 
 namespace Gps2Yandex.Core.Handlers
 {
-    internal static class IDatasetExtensions
+    internal static class DatasetExtensions
     {
         public static AggregatedData LinkData(this IDataset dataset, GpsPoint gpsPoint)
         {

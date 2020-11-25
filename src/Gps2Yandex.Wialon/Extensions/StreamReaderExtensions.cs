@@ -33,14 +33,13 @@ namespace Gps2Yandex.Wialon.Extensions
             {
                 yield break;
             }
-            string uid = match.Groups["uid"].Value;
+            var uid = match.Groups["uid"].Value;
 
             regex = new Regex(PatternD);
 
-            string value;
             while (!source.EndOfStream)
             {
-                value = source.ReadLine() ?? "";
+                var value = source.ReadLine() ?? "";
                 match = regex.Match(value);
                 if (!match.Success)
                 {
@@ -50,8 +49,8 @@ namespace Gps2Yandex.Wialon.Extensions
                 var point = new GpsPoint(
                     monitoringNumber: uid,
                     time: $"{match.Groups["date"].Value}{match.Groups["time"].Value}".ToDateTime(),
-                    latitude: double.Parse(match.Groups["lat1"].Value, CultureInfo.InvariantCulture).ToWGS84(),
-                    longitude: double.Parse(match.Groups["lon1"].Value, CultureInfo.InvariantCulture).ToWGS84(),
+                    latitude: double.Parse(match.Groups["lat1"].Value, CultureInfo.InvariantCulture).ToWgs84(),
+                    longitude: double.Parse(match.Groups["lon1"].Value, CultureInfo.InvariantCulture).ToWgs84(),
                     speed: int.Parse(match.Groups["speed"].Value),
                     course: int.Parse(match.Groups["course"].Value)
                  );
@@ -76,7 +75,7 @@ namespace Gps2Yandex.Wialon.Extensions
             return change;
         }
 
-        private static double ToWGS84(this double value)
+        private static double ToWgs84(this double value)
         {
             var degrees = Math.Truncate(value / 100);
             //var minutes = Math.Truncate(dLat) - degrees;

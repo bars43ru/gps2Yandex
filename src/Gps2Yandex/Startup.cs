@@ -1,10 +1,9 @@
+using Gps2Yandex.WebApi.Configure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
-using Gps2Yandex.WebApi.Extensions;
 
 namespace Gps2Yandex
 {

@@ -11,21 +11,18 @@ namespace Gps2Yandex.Datasource.Handlers
 {
     internal class TransportLoader
     {
-        const string Pattern = @"(?<uid>[^;]*);(?<state>[^;]*);(?<type>[^;]*)";
-        Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Dataset Dataset { get; }
+        private const string Pattern = @"(?<uid>[^;]*);(?<state>[^;]*);(?<type>[^;]*)";
+        private Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
+        private Dataset Dataset { get; }
 
         public TransportLoader(Dataset dataset)
         {
-            Dataset = dataset ?? throw new ArgumentNullException();
+            Dataset = dataset ?? throw new ArgumentNullException(nameof(dataset));
         }
 
         public void LoadFrom(FileInfo file)
         {
-            if (file == null)
-            {
-                throw new ArgumentNullException(nameof(file));
-            }
+            _ = file ?? throw new ArgumentNullException(nameof(file));
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
             Dataset.Update(ReadAll(readStream).ToArray());
@@ -37,11 +34,7 @@ namespace Gps2Yandex.Datasource.Handlers
             {
                 var record = reader.ReadLine();
                 // пропускаем пустые строки и если в них только управляющие символы
-                if (string.IsNullOrWhiteSpace(record))
-                {
-                    continue;
-                }
-                yield return Parse(record);
+                if (!string.IsNullOrWhiteSpace(record)) yield return Parse(record);
             }
         }
 
@@ -53,17 +46,12 @@ namespace Gps2Yandex.Datasource.Handlers
         private Transport Parse(string value)
         {
             var match = Regex.Value.Match(value);
-            if (match.Success)
-            {
-                return new Transport(
+            return match.Success
+                ? new Transport(
                     monitoringNumber: match.Groups["uid"].Value,
                     externalNumber: match.Groups["state"].Value,
-                    type: match.Groups["type"].Value);
-            }
-            else
-            {
-                throw new FormatException($"The record `{value}` doesn't match the format `{Pattern}`.");
-            }
+                    type: match.Groups["type"].Value)
+                : throw new FormatException($"The record `{value}` doesn't match the format `{Pattern}`.");
         }
     }
 }
