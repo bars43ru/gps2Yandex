@@ -6,7 +6,6 @@ using Gps2Yandex.Model.Extensions;
 using Gps2Yandex.Yandex.Configure;
 using Gps2Yandex.Wialon.Configure;
 using Serilog;
-using Microsoft.Extensions.Logging.Console;
 
 namespace Gps2Yandex
 {
@@ -28,7 +27,7 @@ namespace Gps2Yandex
 
                     var serilogLogger = new LoggerConfiguration()
                         .WriteTo.File(
-                            path: "Logs/log-.txt",
+                            path: "logs/log-.txt",
                             outputTemplate: LoggerFormat,
                             fileSizeLimitBytes: null,
                             shared: true,
