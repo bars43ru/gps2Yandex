@@ -12,7 +12,7 @@ namespace Gps2Yandex.Wialon.Handlers
 {
     public sealed class WialonIPSParse: IDisposable
     {
-        private const string PatternL = @"#L#(?<uid>\w+)";
+        private const string PatternL = @"#L#(?<uid>\w+);";
         private const string PatternD = @"#D#(?<date>\d+);(?<time>\d+);(?<lat1>\d+\.\d+);(?<lat2>\w+);(?<lon1>\d+\.\d+);(?<lon2>\w+);(?<speed>\d+);(?<course>\d+);(?<alt>\d+\.\d+);(?<sats>\d+)";
 
         private readonly StreamReader reader;
@@ -96,7 +96,7 @@ namespace Gps2Yandex.Wialon.Handlers
                  );
 
                 // Причина появления этого условия см. https://github.com/bars43ru/gps2Yandex/issues/11
-                if ((int)point.Latitude == 9000 && (int)point.Longitude == 0)
+                if ((int)point.Latitude == 90 && (int)point.Longitude == 0)
                 {
                     continue;
                 }
