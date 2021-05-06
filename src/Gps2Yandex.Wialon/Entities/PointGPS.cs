@@ -1,4 +1,4 @@
-﻿namespace Gps2Yandex.Wialon.Models
+﻿namespace Gps2Yandex.Wialon.Entities
 {
     internal class PointGPS
     {
