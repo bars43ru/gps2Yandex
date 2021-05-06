@@ -1,5 +1,5 @@
 ﻿
-namespace Gps2Yandex.Wialon.Configure
+namespace Gps2Yandex.Wialon.Entities
 {
     internal class Config
     {

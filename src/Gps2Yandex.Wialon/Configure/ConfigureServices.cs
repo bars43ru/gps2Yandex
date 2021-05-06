@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using Gps2Yandex.Wialon.Services;
+using Gps2Yandex.Wialon.Entities;
+using Gps2Yandex.Wialon.HostedServices;
 
 namespace Gps2Yandex.Wialon.Configure
 {
