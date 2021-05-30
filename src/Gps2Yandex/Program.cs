@@ -50,7 +50,7 @@ namespace Gps2Yandex
                     services
                         .AddDataSetServices(config)
                         .AddWialonServices(config)
-                        .AddYadexServices(config);
+                        .AddYandexServices(config);
                 });
         }
     }

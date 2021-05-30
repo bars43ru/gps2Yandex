@@ -1,5 +1,5 @@
 ﻿
-namespace Gps2Yandex.Yandex.Configure
+namespace Gps2Yandex.Yandex.Entities
 {
     internal class Config
     {

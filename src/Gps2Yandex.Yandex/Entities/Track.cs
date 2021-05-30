@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Gps2Yandex.Yandex.Models
+namespace Gps2Yandex.Yandex.Entities
 {
 
     /// <summary>

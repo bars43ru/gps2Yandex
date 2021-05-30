@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Gps2Yandex.Yandex.Models
+namespace Gps2Yandex.Yandex.Entities
 {
 
     /// <summary>
@@ -44,6 +44,6 @@ namespace Gps2Yandex.Yandex.Models
         /// time=10012009:142045
         /// </summary>
         [XmlAttribute(AttributeName = "time")]
-        public string Time { get; set; }
+        public string Time { get; set; } = string.Empty;
     }
 }
