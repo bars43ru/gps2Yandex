@@ -7,19 +7,46 @@ namespace Gps2Yandex.Yandex.Test
 {
     public class UnitTestSendYandex
     {
-        [Fact]
+        [Fact(DisplayName = "Xml формат Point")]
         public void TestXmlSerializerPoint()
         {
-
+            const string waitValue = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
+                "<Point latitude=\"55.75363\" longitude=\"55.75363\" avg_speed=\"0\" direction=\"242\" time=\"10012009:142045\" />";
+            Point point = new()
+            {
+                Latitude = 55.753630,
+                Longitude = 55.753630,
+                AvgSpeed = 0,
+                Direction = 242,
+                Time = "10012009:142045",
+            };
+            var resultValue = XmlSerializer.Serialize(point);
+            if (resultValue != waitValue)
+            {
+                throw new Exception($"Error serialize value. Get `{resultValue}`, expected {resultValue}.");
+            }
         }
 
-        [Fact]
+        [Fact(DisplayName = "Xml формат Track")]
         public void TestXmlSerializerTrack()
         {
-
+            const string waitValue = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
+                "<Track uuid=\"123456789\" category=\"110\" route=\"145\" vehicle_type=\"trolleybus\" />";
+            Track track = new()
+            {
+                Uuid = "123456789",
+                Category = 'n',
+                Route = "145",
+                VehicleType = "trolleybus"
+            };
+            var resultValue = XmlSerializer.Serialize(track);
+            if (resultValue != waitValue)
+            {
+                throw new Exception($"Error serialize value. Get `{resultValue}`, expected {resultValue}.");
+            }
         }
 
-        [Fact]
+        [Fact(DisplayName = "Xml формат Tracks")]
         public void TestXmlSerializerTracks()
         {
             const string waitValue = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<tracks clid=\"123\" />";
@@ -31,10 +58,37 @@ namespace Gps2Yandex.Yandex.Test
             }
         }
 
-        [Fact]
+        [Fact(DisplayName = "Xml формат всего объекта")]
         public void TestXmlSerializerFullObject()
         {
-
+            const string waitValue = 
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
+                "<tracks clid=\"123\">\r\n  "+
+                    "<track uuid=\"123456789\" category=\"110\" route=\"145\" vehicle_type=\"trolleybus\">\r\n    "+
+                        "<point latitude=\"55.75363\" longitude=\"55.75363\" avg_speed=\"0\" direction=\"242\" time=\"10012009:142045\" />\r\n  "+
+                    "</track>\r\n"+
+                "</tracks>";
+            Tracks tracks = new() { Clid = "123" };
+            tracks.Items.Add(new()
+            {
+                Uuid = "123456789",
+                Category = 'n',
+                Route = "145",
+                VehicleType = "trolleybus",
+                Point = new()
+                {
+                    Latitude = 55.753630,
+                    Longitude = 55.753630,
+                    AvgSpeed = 0,
+                    Direction = 242,
+                    Time = "10012009:142045",
+                }
+            });
+            var resultValue = XmlSerializer.Serialize(tracks);
+            if (resultValue != waitValue)
+            {
+                throw new Exception($"Error serialize value. Get `{resultValue}`, expected {resultValue}.");
+            }
         }
     }
 }
