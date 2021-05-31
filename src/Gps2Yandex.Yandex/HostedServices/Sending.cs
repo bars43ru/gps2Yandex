@@ -8,21 +8,23 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 using Gps2Yandex.Model.Services;
-using Gps2Yandex.Yandex.Models;
-using Gps2Yandex.Yandex.Extensions;
-using Gps2Yandex.Yandex.Configure;
+using Gps2Yandex.Yandex.Handlers;
+using Gps2Yandex.Yandex.Entities;
+using System.Threading.Channels;
 
-namespace Gps2Yandex.Yandex.Services
+namespace Gps2Yandex.Yandex.HostedServices
 {
     internal class Sending : BackgroundService
     {
-        ILogger Logger { get; }
-        Config Config { get; }
-        Context Context { get; }
+        private ILogger Logger { get; }
+        private Config Config { get; }
+        private Context Context { get; }
 
-        public Sending(ILogger<Sending> logger, IOptions<Config> config, Context context)
+        public Sending(
+            ILogger<Sending> logger, 
+            IOptions<Config> config, 
+            Context context)
         {
             logger.LogInformation("Create service send data to Yandex.");
             Logger = logger;
@@ -33,6 +35,7 @@ namespace Gps2Yandex.Yandex.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            //Channel messages buffer
             Logger.LogInformation("Start service send data to Yandex.");
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -43,7 +46,7 @@ namespace Gps2Yandex.Yandex.Services
                     var tracks = GetDataSet();
                     if (tracks.Items.Any())
                     {
-                        Send(tracks);
+                        await Send(tracks);
                     }
                     else
                     {
@@ -140,9 +143,9 @@ namespace Gps2Yandex.Yandex.Services
         /// Отправка данных в yandex
         /// </summary>
         /// <param name="tracks"></param>
-        private void Send(Tracks tracks)
+        private async Task Send(Tracks tracks)
         {
-            var xml = tracks.Serialize();
+            var xml = XmlSerializer.Serialize(tracks);
             var @params = new Dictionary<string, string>
             {
                 { "compressed", "0" },
@@ -154,7 +157,7 @@ namespace Gps2Yandex.Yandex.Services
             content.Headers.Clear();
             content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             HttpResponseMessage response = httpClient.PostAsync(Config.Host, content).Result;
-            var result = response.Content.ReadAsStringAsync().Result;
+            var result = await response.Content.ReadAsStringAsync();
             Logger.LogInformation($"Send data yandex. Response: {result}");
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace Gps2Yandex.Yandex.Models
+namespace Gps2Yandex.Yandex.Entities
 {
 
     /// <summary>
@@ -16,7 +16,7 @@ namespace Gps2Yandex.Yandex.Models
         //  uuid=0d63b6deacb91b00e46194fac325b72a
         /// </summary>
         [XmlAttribute(AttributeName = "uuid")]
-        public string Uuid { get; set; }
+        public string Uuid { get; set; } = string.Empty;
 
         /// <summary>
         /// Категория GPS-сигнала:
@@ -32,7 +32,7 @@ namespace Gps2Yandex.Yandex.Models
         /// route=190Б
         /// </summary>
         [XmlAttribute(AttributeName = "route")]
-        public string Route { get; set; }
+        public string Route { get; set; } = string.Empty;
 
         /// <summary>
         /// Тип общественного транспортного средства: 
