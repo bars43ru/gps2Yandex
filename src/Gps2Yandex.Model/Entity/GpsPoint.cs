@@ -27,12 +27,12 @@ namespace Gps2Yandex.Model.Entity
         /// <summary>
         /// Скорость
         /// </summary>
-        public int Speed { get; }
+        public uint Speed { get; }
 
         /// <summary>
         /// Курс
         /// </summary>
-        public int Course { get; }
+        public uint Course { get; }
 
         /// <summary>
         /// Высота. Если отсутствует, значение null.
@@ -44,7 +44,7 @@ namespace Gps2Yandex.Model.Entity
         /// </summary>
         //public int? Sats { get; set; }
 
-        public GpsPoint(string monitoringNumber, DateTime time, double latitude, double longitude, int speed, int course)
+        public GpsPoint(string monitoringNumber, DateTime time, double latitude, double longitude, uint speed, uint course)
         {
             MonitoringNumber = monitoringNumber;
             Time = time;

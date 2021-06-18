@@ -15,7 +15,7 @@ namespace Gps2Yandex.Model.Services
         Context Context { get; }
         public TransportLoader(Context context)
         {
-            Context = context ?? throw new ArgumentNullException();
+            Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public void LoadFrom(FileInfo file)

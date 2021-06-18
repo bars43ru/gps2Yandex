@@ -30,14 +30,25 @@ namespace Gps2Yandex.Yandex.Test
         [Fact(DisplayName = "Xml формат Track")]
         public void TestXmlSerializerTrack()
         {
-            const string waitValue = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
-                "<Track uuid=\"123456789\" category=\"110\" route=\"145\" vehicle_type=\"trolleybus\" />";
+            const string waitValue =
+                "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
+                "<Track uuid=\"123456789\" category=\"n\" route=\"145\" vehicle_type=\"bus\">\r\n" +
+                "  <point latitude=\"55.75363\" longitude=\"55.75363\" avg_speed=\"0\" direction=\"242\" time=\"10012009:142045\" />\r\n" +
+                "</Track>";
             Track track = new()
-            {
+            { 
                 Uuid = "123456789",
-                Category = 'n',
+                Category = GpsSignal.Normal,
                 Route = "145",
-                VehicleType = "trolleybus"
+                VehicleType = VehicleType.Bus,
+                Point = new()
+                {
+                    Latitude = 55.753630,
+                    Longitude = 55.753630,
+                    AvgSpeed = 0,
+                    Direction = 242,
+                    Time = "10012009:142045",
+                }
             };
             var resultValue = XmlSerializer.Serialize(track);
             if (resultValue != waitValue)
@@ -64,17 +75,17 @@ namespace Gps2Yandex.Yandex.Test
             const string waitValue = 
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n"+
                 "<tracks clid=\"123\">\r\n  "+
-                    "<track uuid=\"123456789\" category=\"110\" route=\"145\" vehicle_type=\"trolleybus\">\r\n    "+
+                    "<track uuid=\"123456789\" category=\"s\" route=\"145\" vehicle_type=\"tramway\">\r\n    " +
                         "<point latitude=\"55.75363\" longitude=\"55.75363\" avg_speed=\"0\" direction=\"242\" time=\"10012009:142045\" />\r\n  "+
                     "</track>\r\n"+
                 "</tracks>";
-            Tracks tracks = new() { Clid = "123" };
-            tracks.Items.Add(new()
+
+            Track track = new()
             {
                 Uuid = "123456789",
-                Category = 'n',
+                Category = GpsSignal.Slow,
                 Route = "145",
-                VehicleType = "trolleybus",
+                VehicleType = VehicleType.Tramway,
                 Point = new()
                 {
                     Latitude = 55.753630,
@@ -83,7 +94,9 @@ namespace Gps2Yandex.Yandex.Test
                     Direction = 242,
                     Time = "10012009:142045",
                 }
-            });
+            };
+
+            Tracks tracks = new("123", track);
             var resultValue = XmlSerializer.Serialize(tracks);
             if (resultValue != waitValue)
             {

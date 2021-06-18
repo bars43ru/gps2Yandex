@@ -121,7 +121,7 @@ namespace Gps2Yandex.Yandex.HostedServices
                             {
                                 Uuid = a.Bus.MonitoringNumber,
                                 Route = a.Route.YandexNumber,
-                                VehicleType = a.Bus.Type,
+                                VehicleType = (VehicleType)Enum.Parse(typeof(VehicleType), a.Bus.Type),
                                 Point = new Point()
                                 {
                                     Latitude = a.GpsData.Latitude,
@@ -131,11 +131,7 @@ namespace Gps2Yandex.Yandex.HostedServices
                                     Time = a.GpsData.Time.ToUniversalTime().ToString("ddMMyyyy:HHmmss")
                                 }
                             });
-            var tracks = new Tracks()
-            {
-                Clid = Config.Clid,
-                Items = result.ToList(),
-            };
+            var tracks = new Tracks(Config.Clid, result.ToArray());
             return tracks;
         }
 
@@ -146,14 +142,14 @@ namespace Gps2Yandex.Yandex.HostedServices
         private async Task Send(Tracks tracks)
         {
             var xml = XmlSerializer.Serialize(tracks);
-            var @params = new Dictionary<string, string>
+            Dictionary<string, string> @params = new()
             {
                 { "compressed", "0" },
                 { "data", xml }
             };
 
             using var httpClient = new HttpClient();
-            using var content = new FormUrlEncodedContent(@params);
+            using var content = new FormUrlEncodedContent(@params!);
             content.Headers.Clear();
             content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             HttpResponseMessage response = httpClient.PostAsync(Config.Host, content).Result;
