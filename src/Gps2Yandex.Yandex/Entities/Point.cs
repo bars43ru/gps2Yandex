@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace Gps2Yandex.Yandex.Entities
@@ -42,8 +43,15 @@ namespace Gps2Yandex.Yandex.Entities
         /// Дата и время получения координат точки от GPS-приемника (по Гринвичу). Формат: ДДММГГГГ:ччммсс 
         /// time=10012009:142045
         /// </summary>
-        /// TODO Need go to DateTime and serialization sample https://www.codeproject.com/Tips/831949/Serialize-System-TimeSpan-to-XML
+        [XmlIgnore]
+        public DateTime Time { get; init; }
+
+        [Browsable(false)]
         [XmlAttribute(AttributeName = "time")]
-        public string Time { get; init; }
+        public string TimeString 
+        { 
+            get => Time.ToUniversalTime().ToString("ddMMyyyy:HHmmss");
+            set => _ = value;
+        }
     }
 }

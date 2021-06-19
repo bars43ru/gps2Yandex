@@ -18,7 +18,7 @@ namespace Gps2Yandex.Yandex.Test
                 Longitude = 55.753630,
                 AvgSpeed = 0,
                 Direction = 242,
-                Time = "10012009:142045",
+                Time = new DateTime(2009,01, 10, 17, 20, 45),
             };
             var resultValue = XmlSerializer.Serialize(point);
             if (resultValue != waitValue)
@@ -47,7 +47,7 @@ namespace Gps2Yandex.Yandex.Test
                     Longitude = 55.753630,
                     AvgSpeed = 0,
                     Direction = 242,
-                    Time = "10012009:142045",
+                    Time = new DateTime(2009, 01, 10, 14, 20, 45, DateTimeKind.Utc),
                 }
             };
             var resultValue = XmlSerializer.Serialize(track);
@@ -92,7 +92,7 @@ namespace Gps2Yandex.Yandex.Test
                     Longitude = 55.753630,
                     AvgSpeed = 0,
                     Direction = 242,
-                    Time = "10012009:142045",
+                    Time = new DateTime(2009, 01, 10, 14, 20, 45, DateTimeKind.Utc),
                 }
             };
 

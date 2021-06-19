@@ -128,7 +128,7 @@ namespace Gps2Yandex.Yandex.HostedServices
                                     Longitude = a.GpsData.Longitude,
                                     AvgSpeed = a.GpsData.Speed,
                                     Direction = a.GpsData.Course,
-                                    Time = a.GpsData.Time.ToUniversalTime().ToString("ddMMyyyy:HHmmss")
+                                    Time = a.GpsData.Time,
                                 }
                             });
             var tracks = new Tracks(Config.Clid, result.ToArray());
