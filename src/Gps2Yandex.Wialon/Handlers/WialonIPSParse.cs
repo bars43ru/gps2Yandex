@@ -91,8 +91,8 @@ namespace Gps2Yandex.Wialon.Handlers
                     time: Convert($"{match.Groups["date"].Value}{match.Groups["time"].Value}"),
                     latitude: Wgs84(double.Parse(match.Groups["lat1"].Value, CultureInfo.InvariantCulture)),
                     longitude: Wgs84(double.Parse(match.Groups["lon1"].Value, CultureInfo.InvariantCulture)),
-                    speed: int.Parse(match.Groups["speed"].Value),
-                    course: int.Parse(match.Groups["course"].Value)
+                    speed: uint.Parse(match.Groups["speed"].Value),
+                    course: uint.Parse(match.Groups["course"].Value)
                  );
 
                 // Причина появления этого условия см. https://github.com/bars43ru/gps2Yandex/issues/11
