@@ -1,4 +1,4 @@
-using Gps2Yandex.Model.Entity;
+using Gps2Yandex.Wialon.Entities;
 using Gps2Yandex.Wialon.Handlers;
 using System;
 using System.Collections.Generic;

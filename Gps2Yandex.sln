@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex", "src\Gps2Yande
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Wialon", "src\Gps2Yandex.Wialon\Gps2Yandex.Wialon.csproj", "{95830A77-7A99-4A03-B8A2-75EB461CDB0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Model", "src\Gps2Yandex.Model\Gps2Yandex.Model.csproj", "{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.References", "src\Gps2Yandex.Model\Gps2Yandex.References.csproj", "{3CFCBF33-0BAD-44C8-9AA7-B57D41D72291}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Yandex", "src\Gps2Yandex.Yandex\Gps2Yandex.Yandex.csproj", "{7F281FD8-493D-4445-9538-518CA67E8992}"
 EndProject
@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{42FF5268-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Wialon.Test", "src\Gps2Yandex.Wialon.Test\Gps2Yandex.Wialon.Test.csproj", "{FF20FA82-8253-4BD2-83B3-FEA15F3F1445}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gps2Yandex.Yandex.Test", "src\Gps2Yandex.Yandex.Test\Gps2Yandex.Yandex.Test.csproj", "{4D7C645B-5189-45BE-BBD4-C4641C9981E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gps2Yandex.Yandex.Test", "src\Gps2Yandex.Yandex.Test\Gps2Yandex.Yandex.Test.csproj", "{4D7C645B-5189-45BE-BBD4-C4641C9981E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,28 +1,21 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
+using Gps2Yandex.References.Entities;
 
-using Gps2Yandex.Model.Entity;
-
-using Minutes = System.UInt16;
-
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.References.Services
 {
     public class Context
     {
-        ConcurrentDictionary<string, GpsPoint> gpsPoints { get; }
         public IEnumerable<Transport> Buses { get; private set; }
         public IEnumerable<Route> Routes { get; private set; }
         public IEnumerable<Schedule> Schedules { get; private set; }
-        public IEnumerable<GpsPoint> GpsPoints { get => gpsPoints.Values; }
 
         public Context()
         {
-            gpsPoints = new ConcurrentDictionary<string, GpsPoint>();
-            Buses = new Transport[] { };
-            Routes = new Route[] { };
-            Schedules = new Schedule[] { };
+            Buses = Array.Empty<Transport>();
+            Routes = Array.Empty<Route>();
+            Schedules = Array.Empty<Schedule>();
         }
 
         public void Update(params Transport[] buses)
@@ -40,16 +33,7 @@ namespace Gps2Yandex.Model.Services
             Schedules = schedules;
         }
 
-        public void Update(GpsPoint point)
-        {
-            if (!gpsPoints.TryRemove(point.MonitoringNumber, out var oldPoint))
-            {
-                oldPoint = point;
-            }
-            gpsPoints.TryAdd(point.MonitoringNumber, oldPoint.Time.CompareTo(point.Time) <= 0 ? point : oldPoint);
-        }
-
-        public IEnumerable<Schedule> ActualSchedules(DateTime datetime, Minutes deviation)
+        public IEnumerable<Schedule> ActualSchedules(DateTime datetime, uint deviation)
         {
             var beginInterval = datetime.AddMinutes(deviation * -1);
             var endInterval = datetime.AddMinutes(deviation * +1);

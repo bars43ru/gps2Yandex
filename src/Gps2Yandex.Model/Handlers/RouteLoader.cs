@@ -1,25 +1,22 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Gps2Yandex.References.Entities;
 
-using Gps2Yandex.Model.Entity;
-
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.References.Handlers
 {
-    internal class RouteLoader
+    public static class RouteLoader
     {
         const string Pattern = @"(?<external>[^;]*);(?<yandex>[^;]*)";
-        Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Context Context { get; }
+        static Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
 
-        public RouteLoader(Context context)
-        {
-            Context = context ?? throw new ArgumentNullException();
-        }
-
-        public void LoadFrom(FileInfo file)
+        /// <summary>
+        /// Считывания данных о маршрутах
+        /// </summary>
+        /// <param name="file"><see cref="FileInfo"/> с сылкой на файл с данными о маршрутах</param>
+        /// <returns>считанные маршруты</returns>
+        public static List<Route> Read(FileInfo file)
         {
             if (file == null)
             {
@@ -27,16 +24,21 @@ namespace Gps2Yandex.Model.Services
             }
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
-            Context.Update(ReadAll(readStream).ToArray());
+            return Read(readStream);
         }
 
         /// <summary>
         /// Считывания данных о маршрутах
         /// </summary>
-        /// <param name="reader"><seealso cref="StreamReader"/> на файл></param>
-        /// <returns>Перечень маршрутов</returns>
-        private IEnumerable<Route> ReadAll(StreamReader reader)
+        /// <param name="reader"><see cref="StreamReader"/> с данными о маршрутах</param>
+        /// <returns>считанные маршруты</returns>
+        public static List<Route> Read(StreamReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+            List<Route> result = new(30);
             while (!reader.EndOfStream)
             {
                 var record = reader.ReadLine();
@@ -45,8 +47,9 @@ namespace Gps2Yandex.Model.Services
                 {
                     continue;
                 }
-                yield return Parse(record);
+                result.Add(Parse(record));
             };
+            return result;
         }
 
         /// <summary>
@@ -54,8 +57,12 @@ namespace Gps2Yandex.Model.Services
         /// </summary>
         /// <param name="value">Строка с данными</param>
         /// <returns><seealso cref="Route"/>></returns>
-        private Route Parse(string value)
+        public static Route Parse(string value)
         {
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
             var match = Regex.Value.Match(value);
             if (match.Success)
             {

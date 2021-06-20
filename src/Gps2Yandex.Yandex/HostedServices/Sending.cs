@@ -8,10 +8,10 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Gps2Yandex.Model.Services;
+using datasource = Gps2Yandex.References.Services;
 using Gps2Yandex.Yandex.Handlers;
 using Gps2Yandex.Yandex.Entities;
-using System.Threading.Channels;
+using wialon = Gps2Yandex.Wialon.Services;
 
 namespace Gps2Yandex.Yandex.HostedServices
 {
@@ -19,17 +19,20 @@ namespace Gps2Yandex.Yandex.HostedServices
     {
         private ILogger Logger { get; }
         private Config Config { get; }
-        private Context Context { get; }
+        private datasource.Context Context { get; }
+        private wialon.Context WialonContext { get; }
 
         public Sending(
             ILogger<Sending> logger, 
-            IOptions<Config> config, 
-            Context context)
+            IOptions<Config> config,
+            datasource.Context context,
+            wialon.Context wialonContext)
         {
             logger.LogInformation("Create service send data to Yandex.");
             Logger = logger;
             Config = config.Value;
             Context = context;
+            WialonContext = wialonContext;
             ServicePointManager.Expect100Continue = false;
         }
 
@@ -97,19 +100,19 @@ namespace Gps2Yandex.Yandex.HostedServices
                                   (data, bus) => new { Schedule = data.Schedule, Route = data.Route, Bus = bus }).ToList();
 
 
-            var listTransport = Context
+            var listTransport = WialonContext
                                     .GpsPoints
                                     .Join(Context.Buses, a => a.MonitoringNumber, b => b.MonitoringNumber, (point, tc) => new { GpsPoint = point, TC = tc }).ToList();
 
             // проверка а все ли данные о записях uid wialon есть в справочнике что пришли к нам
-            var lst3 = Context.GpsPoints.Where(a => !Context.Buses.Any(b => b.MonitoringNumber == a.MonitoringNumber));
+            var lst3 = WialonContext.GpsPoints.Where(a => !Context.Buses.Any(b => b.MonitoringNumber == a.MonitoringNumber));
             if (lst3.Any())
             {
                 Logger.LogInformation("Find record in gps dataset where uid transport not found in buses dataset.");
             }
 
             var dataset = buses
-                            .Join(Context.GpsPoints,
+                            .Join(WialonContext.GpsPoints,
                                   a => a.Bus.MonitoringNumber,
                                   b => b.MonitoringNumber,
                                   (data, gps) => new { Schedule = data.Schedule, Route = data.Route, Bus = data.Bus, GpsData = gps })

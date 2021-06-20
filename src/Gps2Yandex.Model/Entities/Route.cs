@@ -1,4 +1,4 @@
-﻿namespace Gps2Yandex.Model.Entity
+﻿namespace Gps2Yandex.References.Entities
 {
     /// <summary>
     /// Данные по маршруту (переводная таблица)

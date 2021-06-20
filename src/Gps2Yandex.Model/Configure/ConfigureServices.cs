@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Gps2Yandex.References.Services;
+using Gps2Yandex.References.Configure;
+using Gps2Yandex.References.HostedServices;
 
-using Gps2Yandex.Model.Services;
-using Gps2Yandex.Model.Configure;
-
-namespace Gps2Yandex.Model.Extensions
+namespace Gps2Yandex.References.Extensions
 {
     public static class ConfigureServices
     {
@@ -13,9 +13,6 @@ namespace Gps2Yandex.Model.Extensions
             return serviceCollection
                 .Configure<Config>(options => configuration.GetSection("Catalogs").Bind(options))
                 .AddSingleton<Context>()
-                .AddTransient<RouteLoader>()
-                .AddTransient<TransportLoader>()
-                .AddTransient<ScheduleLoader>()
                 .AddHostedService<MonitoringFiles>();
         }
     }

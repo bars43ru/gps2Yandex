@@ -1,27 +1,24 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using Gps2Yandex.References.Entities;
 
-using Gps2Yandex.Model.Entity;
-
-namespace Gps2Yandex.Model.Services
+namespace Gps2Yandex.References.Handlers
 {
-    internal class ScheduleLoader
+    public static class ScheduleLoader
     {
         const string DateTimeFormat = @"dd/MM/yyyy'T'HH:mm:ss'Z'zzz";
         const string Pattern = @"(?<route>[^;]*);(?<transport>[^;]*);(?<begin>[^;]+);(?<end>[^;]+)";
-        Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
-        Context Context { get; }
+        static Lazy<Regex> Regex { get; } = new Lazy<Regex>(() => new Regex(Pattern));
 
-        public ScheduleLoader(Context context)
-        {
-            Context = context ?? throw new ArgumentNullException();
-        }
-
-        public void LoadFrom(FileInfo file)
+        /// <summary>
+        /// Считывания данных о расписании
+        /// </summary>
+        /// <param name="file"><see cref="FileInfo"/> с сылкой на файл с данными о расписании</param>
+        /// <returns>считанное расписание</returns>
+        public static List<Schedule> Read(FileInfo file)
         {
             if (file == null)
             {
@@ -29,11 +26,21 @@ namespace Gps2Yandex.Model.Services
             }
             using var fileStream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
             using var readStream = new StreamReader(fileStream);
-            Context.Update(ReadAll(readStream).ToArray());
+            return Read(readStream);
         }
 
-        private IEnumerable<Schedule> ReadAll(StreamReader reader)
+        /// <summary>
+        /// Считывания данных о расписании
+        /// </summary>
+        /// <param name="reader"><see cref="StreamReader"/> с данными о расписании</param>
+        /// <returns>считанное расписании</returns>
+        public static List<Schedule> Read(StreamReader reader)
         {
+            if (reader == null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+            List<Schedule> result = new(30);
             while (!reader.EndOfStream)
             {
                 var record = reader.ReadLine();
@@ -42,8 +49,9 @@ namespace Gps2Yandex.Model.Services
                 {
                     continue;
                 }
-                yield return Parse(record);
+                result.Add(Parse(record));
             };
+            return result;
         }
 
         /// <summary>
@@ -51,7 +59,7 @@ namespace Gps2Yandex.Model.Services
         /// </summary>
         /// <param name="value">Строка с данными</param>
         /// <returns><seealso cref="Schedule"/>></returns>
-        private Schedule Parse(string value)
+        public static Schedule Parse(string value)
         {
             var match = Regex.Value.Match(value);
             if (match.Success)
@@ -69,8 +77,7 @@ namespace Gps2Yandex.Model.Services
             }
         }
 
-
-        private DateTime ToDateTime(string value)
+        public static DateTime ToDateTime(string value)
         {
             var formats = new string[] { DateTimeFormat };
             if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime _change))
