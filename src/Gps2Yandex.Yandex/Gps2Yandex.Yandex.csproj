@@ -15,7 +15,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Gps2Yandex.Model\Gps2Yandex.References.csproj" />
 		<ProjectReference Include="..\Gps2Yandex.Wialon\Gps2Yandex.Wialon.csproj" />
 	</ItemGroup>
 
