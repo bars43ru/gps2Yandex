@@ -53,7 +53,7 @@ namespace Gps2Yandex.References.Handlers
         }
 
         /// <summary>
-        /// Парсим строку
+        /// Парсинг строка
         /// </summary>
         /// <param name="value">Строка с данными</param>
         /// <returns><seealso cref="Route"/>></returns>

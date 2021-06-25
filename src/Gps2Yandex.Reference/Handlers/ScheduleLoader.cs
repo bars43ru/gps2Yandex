@@ -82,7 +82,7 @@ namespace Gps2Yandex.References.Handlers
             var formats = new string[] { DateTimeFormat };
             if (!DateTime.TryParseExact(value, formats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime _change))
             {
-                throw new ArgumentException($"Value `{value}` is not in proper `{DateTimeFormat}` format.");
+                throw new FormatException($"Value `{value}` is not in proper `{DateTimeFormat}` format.");
             }
             return _change;
         }
