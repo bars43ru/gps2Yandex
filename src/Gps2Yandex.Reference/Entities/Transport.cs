@@ -1,4 +1,4 @@
-﻿namespace Gps2Yandex.Model.Entity
+﻿namespace Gps2Yandex.References.Entities
 {
     /// <summary>
     /// Информация по транспортному средству (переводная таблица для соединения данных пришедние 

@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Gps2Yandex.Model.Extensions;
+using Gps2Yandex.References.Extensions;
 using Gps2Yandex.Yandex.Configure;
 using Gps2Yandex.Wialon.Configure;
 using Serilog;

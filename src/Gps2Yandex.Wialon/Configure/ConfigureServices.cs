@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Gps2Yandex.Wialon.Entities;
 using Gps2Yandex.Wialon.HostedServices;
+using Gps2Yandex.Wialon.Services;
 
 namespace Gps2Yandex.Wialon.Configure
 {
@@ -11,6 +12,7 @@ namespace Gps2Yandex.Wialon.Configure
         {
             return serviceCollection
                 .Configure<Config>(options => configuration.GetSection("WialonListen").Bind(options))
+                .AddSingleton<Context>()
                 .AddHostedService<ListenerRetransmission>();
         }
     }

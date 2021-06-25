@@ -1,5 +1,5 @@
 ﻿
-namespace Gps2Yandex.Model.Configure
+namespace Gps2Yandex.References.Configure
 {
     internal class Config
     {

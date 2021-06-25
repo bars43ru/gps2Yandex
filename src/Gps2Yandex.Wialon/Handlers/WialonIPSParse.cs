@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Gps2Yandex.Wialon.Entities;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -6,7 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Gps2Yandex.Model.Entity;
 
 namespace Gps2Yandex.Wialon.Handlers
 {

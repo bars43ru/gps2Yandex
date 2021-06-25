@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Gps2Yandex.Model.Services;
 using Gps2Yandex.Wialon.Entities;
 using Gps2Yandex.Wialon.Handlers;
+using Gps2Yandex.Wialon.Services;
 
 namespace Gps2Yandex.Wialon.HostedServices
 {
