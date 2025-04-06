@@ -1,7 +1,7 @@
 ## ⚠️ Внимание
 
 Этот репозиторий больше не поддерживается.  
-Дальнейшее развитие проекта осуществляется в [github.com/bars43ru/bus2map](https://github.com/bars43ru/bus2map).
+Дальнейшее развитие проекта осуществляется в [https://github.com/bars43ru/bus2map](https://github.com/bars43ru/bus2map).
 
 # Интеграционный модуль Gps2Yandex
 
